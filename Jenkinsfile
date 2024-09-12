@@ -1,21 +1,14 @@
 pipeline {
-  agent any
+  agent none
   stages {
     // Мы используем тут master агента, что очень плохо в реальных проектах
     // Для демо целей - это позволительно, поэтому надо сюда установить python
-    stage('Preparation') {
-      steps {
-        sh """
-          su root
-          whoami
-          ls -la
-          apt-update
-          apt install -y python3 python3-pip
-          ln -s /usr/bin/python3 /usr/bin/python
-        """
-      }
-    }
     stage('Build and Test') {
+      agent {         
+       docker {          
+         image 'python:3.9.20-alpine3.20'         
+       }    
+      }
       steps {
         sh """
           pip install -r requirements.txt
@@ -26,6 +19,11 @@ pipeline {
       }
     }
     stage('Lint') {
+      agent {         
+         docker {          
+           image 'python:3.9.20-alpine3.20'         
+        }    
+      }
       steps {
         sh """
           pip install -r requirements.txt
