@@ -7,3 +7,4 @@
 * Jenkins
 * Bitbucket Pipelines
 * Gitlab
+* Test
