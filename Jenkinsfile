@@ -11,7 +11,7 @@ pipeline {
       }
       steps {
         sh """
-          pip install -r requirements.txt
+          pip install -r requirements.txt --user
           ls -la
           python hello-world.py
           echo "The code is okay"
