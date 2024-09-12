@@ -6,8 +6,10 @@ pipeline {
     stage('Preparation') {
       steps {
         sh """
+          su root
           whoami
           ls -la
+          apt-update
           apt install -y python3 python3-pip
           ln -s /usr/bin/python3 /usr/bin/python
         """
